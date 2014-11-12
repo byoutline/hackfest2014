@@ -86,7 +86,8 @@ public class AuthorizeFragment extends Fragment {
             @Override
             public void onAuthSuccess(String arg0) {
                 d("Authentication Success", arg0);
-                authorizeManager.logIn();
+                authorizeManager.logIn("steamIdTODO", "openIdTODO");
+//                queryUserProfileData();
             }
 
             @Override
@@ -98,14 +99,13 @@ public class AuthorizeFragment extends Fragment {
 
     }
 
-    @OnClick(R.id.authorize_TMP_tv)
-    void queryUserProfileData() {
+    private void queryUserProfileData() {
         nabuSDK.getUserProfile(getActivity(), new UserProfileListener() {
 
 
             @Override
             public void onReceiveData(UserProfile arg0) {
-                d("Success " + arg0);
+                authorizeManager.logIn(arg0.nickName, arg0.razerid);
             }
 
             @Override
