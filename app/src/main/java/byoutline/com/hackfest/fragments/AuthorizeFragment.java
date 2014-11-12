@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.byoutline.secretsauce.utils.ViewUtils;
+import com.razer.android.nabuopensdk.AuthCheckCallback;
 import com.razer.android.nabuopensdk.NabuOpenSDK;
 import com.razer.android.nabuopensdk.interfaces.NabuAuthListener;
 import com.razer.android.nabuopensdk.interfaces.UserProfileListener;
@@ -122,4 +123,20 @@ public class AuthorizeFragment extends Fragment {
         }
     }
 
+
+    private void checkApp() {
+        nabuSDK.checkAppAuthorized(getActivity().getApplicationContext(), new AuthCheckCallback() {
+
+            @Override
+            public void onSuccess(boolean isAuthorized) {
+                // LOGIN SUCCESSFUL
+                d("Checking auth succeeded: result " + isAuthorized);
+            }
+
+            @Override
+            public void onFailed(String errorMessage) {
+                e("Checking auth failed");
+            }
+        });
+    }
 }
