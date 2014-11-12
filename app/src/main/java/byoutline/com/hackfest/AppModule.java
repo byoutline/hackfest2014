@@ -1,10 +1,12 @@
 package byoutline.com.hackfest;
 
 import com.razer.android.nabuopensdk.NabuOpenSDK;
+import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
 
 import byoutline.com.hackfest.fragments.AuthorizeFragment;
+import byoutline.com.hackfest.managers.AuthorizeManager;
 import dagger.Module;
 import dagger.Provides;
 
@@ -13,7 +15,7 @@ import dagger.Provides;
  */
 @Module(
         injects = {
-                AuthorizeFragment.class
+                AuthorizeFragment.class,
         }
 )
 public class AppModule {
@@ -27,5 +29,19 @@ public class AppModule {
     @Provides
     NabuOpenSDK provideNabu() {
         return NabuOpenSDK.getInstance(app);
+    }
+
+    @Provides
+    @Singleton
+    public Bus provideBus() {
+        return new Bus();
+    }
+
+    @Singleton
+    @Provides
+    AuthorizeManager provideAuthorizeManager(Bus bus) {
+        AuthorizeManager instance = new AuthorizeManager(bus);
+        bus.register(instance);
+        return instance;
     }
 }

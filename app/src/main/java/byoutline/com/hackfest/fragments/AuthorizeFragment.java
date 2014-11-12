@@ -12,6 +12,8 @@ import com.razer.android.nabuopensdk.interfaces.NabuAuthListener;
 import com.razer.android.nabuopensdk.interfaces.UserProfileListener;
 import com.razer.android.nabuopensdk.models.Scope;
 import com.razer.android.nabuopensdk.models.UserProfile;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
@@ -20,6 +22,8 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import byoutline.com.hackfest.App;
 import byoutline.com.hackfest.R;
+import byoutline.com.hackfest.events.AuthorizationStatusEvent;
+import byoutline.com.hackfest.managers.AuthorizeManager;
 
 import static timber.log.Timber.d;
 import static timber.log.Timber.e;
@@ -31,6 +35,11 @@ public class AuthorizeFragment extends Fragment {
 
     @Inject
     NabuOpenSDK nabuSDK;
+    @Inject
+    AuthorizeManager authorizeManager;
+    @Inject
+    Bus bus;
+
     @InjectView(R.id.authorize_continue_tv)
     View TMP;
 
@@ -53,6 +62,23 @@ public class AuthorizeFragment extends Fragment {
         super.onDestroy();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        bus.register(this);
+    }
+
+    @Override
+    public void onPause() {
+        bus.unregister(this);
+        super.onPause();
+    }
+
+    private void openListFragment() {
+        // TODO: write me.
+        d("open list fragment");
+    }
+
     @OnClick(R.id.authorize_continue_tv)
     public void onAuthorizeClicked() {
         nabuSDK.initiate(getActivity(), "ec47877454906fd268286676ef549d0736965485", new String[]{Scope.SCOPE_FITNESS}, new NabuAuthListener() {
@@ -60,12 +86,13 @@ public class AuthorizeFragment extends Fragment {
             @Override
             public void onAuthSuccess(String arg0) {
                 d("Authentication Success", arg0);
-                ViewUtils.showToast("Huge success");
+                authorizeManager.logIn();
             }
 
             @Override
             public void onAuthFailed(String arg0) {
                 e("Authentication Failed", arg0);
+                authorizeManager.logOut();
             }
         });
 
@@ -86,6 +113,13 @@ public class AuthorizeFragment extends Fragment {
                 e(arg0);
             }
         });
+    }
+
+    @Subscribe
+    public void onAuthorizationChange(AuthorizationStatusEvent event) {
+        if (event.loggedIn) {
+            openListFragment();
+        }
     }
 
 }
