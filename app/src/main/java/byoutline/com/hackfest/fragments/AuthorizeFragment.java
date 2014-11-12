@@ -9,15 +9,20 @@ import android.view.ViewGroup;
 import com.byoutline.secretsauce.utils.ViewUtils;
 import com.razer.android.nabuopensdk.NabuOpenSDK;
 import com.razer.android.nabuopensdk.interfaces.NabuAuthListener;
+import com.razer.android.nabuopensdk.interfaces.UserProfileListener;
 import com.razer.android.nabuopensdk.models.Scope;
+import com.razer.android.nabuopensdk.models.UserProfile;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import butterknife.OnClick;
 import byoutline.com.hackfest.App;
 import byoutline.com.hackfest.R;
-import timber.log.Timber;
+
+import static timber.log.Timber.d;
+import static timber.log.Timber.e;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -26,6 +31,8 @@ public class AuthorizeFragment extends Fragment {
 
     @Inject
     NabuOpenSDK nabuSDK;
+    @InjectView(R.id.authorize_continue_tv)
+    View TMP;
 
     public AuthorizeFragment() {
     }
@@ -35,9 +42,15 @@ public class AuthorizeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_authorize, container, false);
-        ButterKnife.inject(rootView);
+        ButterKnife.inject(this, rootView);
         App.doDaggerInject(this);
         return rootView;
+    }
+
+    @Override
+    public void onDestroy() {
+        nabuSDK.onDestroy(getActivity());
+        super.onDestroy();
     }
 
     @OnClick(R.id.authorize_continue_tv)
@@ -46,15 +59,33 @@ public class AuthorizeFragment extends Fragment {
 
             @Override
             public void onAuthSuccess(String arg0) {
-                Timber.e("Authentication Success", arg0);
+                d("Authentication Success", arg0);
                 ViewUtils.showToast("Huge success");
             }
 
             @Override
             public void onAuthFailed(String arg0) {
-                Timber.d("Authentication Failed", arg0);
+                e("Authentication Failed", arg0);
             }
         });
 
     }
+
+    @OnClick(R.id.authorize_TMP_tv)
+    void queryUserProfileData() {
+        nabuSDK.getUserProfile(getActivity(), new UserProfileListener() {
+
+
+            @Override
+            public void onReceiveData(UserProfile arg0) {
+                d("Success " + arg0);
+            }
+
+            @Override
+            public void onReceiveFailed(String arg0) {
+                e(arg0);
+            }
+        });
+    }
+
 }
