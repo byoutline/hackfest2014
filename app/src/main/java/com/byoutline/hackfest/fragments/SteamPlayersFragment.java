@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 
 import com.byoutline.hackfest.App;
@@ -16,12 +17,16 @@ import com.byoutline.hackfest.adapters.GamerAdapter;
 import com.byoutline.hackfest.api.ApiClient;
 import com.byoutline.hackfest.api.PlayerDetails;
 import com.byoutline.hackfest.api.SteamDetails;
+import com.byoutline.hackfest.views.RadioButtonFont;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 import com.razer.android.nabuopensdk.NabuOpenSDK;
+import com.razer.android.nabuopensdk.interfaces.Hi5Listener;
 import com.razer.android.nabuopensdk.interfaces.PulseListener;
+import com.razer.android.nabuopensdk.models.Hi5Data;
 import com.razer.android.nabuopensdk.models.PulseData;
 import com.squareup.otto.Bus;
 
@@ -58,6 +63,10 @@ public class SteamPlayersFragment extends Fragment {
 
     @InjectView(R.id.players_lv)
     ListView gamersLv;
+    @InjectView(R.id.fav_gamers_rbtn)
+    RadioButtonFont favGamers;
+    @InjectView(R.id.nearby_gamers_rbtn)
+    RadioButtonFont nearbyGamers;
 
 
     public SteamPlayersFragment() {
@@ -81,6 +90,7 @@ public class SteamPlayersFragment extends Fragment {
         return rootView;
     }
 
+
     private void setUpAdapters() {
         adapter = new GamerAdapter(getActivity().getApplication());
     }
@@ -94,6 +104,16 @@ public class SteamPlayersFragment extends Fragment {
                 startActivity(browserIntent);
             }
         });
+        nearbyGamers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    adapter.clear();
+                    queryPulseData();;
+                }
+            }
+        });
+
     }
 
 
@@ -133,8 +153,6 @@ public class SteamPlayersFragment extends Fragment {
                 for (String openId : openIds) {
                     Timber.d("Nearby openid: " + openId);
                 }
-                String pawelOpenId = "8605da3c1da1659ef6507ac841a75acb93edd8e32c2257484986bbb0286fc30b";
-                String sebastianOpenId = "83bc1c62fa51afee8db0a982574aacf32184ac1418419957e46ebaeadc7632e2";
                 ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("SteamUser").whereContainedIn("openid", openIds);
 //                ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("SteamUser");//.whereEqualTo("openid", sebastianOpenId);
                 parseQuery.findInBackground(new FindCallback<ParseObject>() {
@@ -163,6 +181,37 @@ public class SteamPlayersFragment extends Fragment {
 
                     }
                 });
+            }
+        });
+    }
+
+    private void queryHi5Data() {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DAY_OF_MONTH, -1);
+        nabuSDK.getHi5Data(getActivity(), c.getTimeInMillis(), System.currentTimeMillis(), new Hi5Listener() {
+
+            @Override
+            public void onReceiveFailed(String arg0) {
+                Timber.e(arg0);
+            }
+
+            @Override
+            public void onReceiveData(Hi5Data[] arg0) {
+                String pawelOpenId = "8605da3c1da1659ef6507ac841a75acb93edd8e32c2257484986bbb0286fc30b";
+                String sebastianOpenId = "83bc1c62fa51afee8db0a982574aacf32184ac1418419957e46ebaeadc7632e2";
+
+                Timber.d("User high fived");
+                for (Hi5Data hi5Data : arg0) {
+                    ParseObject parseObject = new ParseObject("SteamFriend");
+                    parseObject.put("from", pawelOpenId);
+                    parseObject.put("to", hi5Data.openId);
+                    parseObject.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            Timber.d("high five saved");
+                        }
+                    });
+                }
             }
         });
     }
