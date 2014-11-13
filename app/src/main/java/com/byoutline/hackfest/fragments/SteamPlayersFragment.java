@@ -1,4 +1,4 @@
-package byoutline.com.hackfest.fragments;
+package com.byoutline.hackfest.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -13,9 +13,9 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import byoutline.com.hackfest.App;
-import byoutline.com.hackfest.R;
-import byoutline.com.hackfest.adapters.GamerAdapter;
+import com.byoutline.hackfest.App;
+import com.byoutline.hackfest.R;
+import com.byoutline.hackfest.adapters.GamerAdapter;
 
 /**
  * A placeholder fragment containing a simple view.

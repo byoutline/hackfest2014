@@ -1,4 +1,4 @@
-package byoutline.com.hackfest.fragments;
+package com.byoutline.hackfest.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.byoutline.secretsauce.utils.ViewUtils;
 import com.razer.android.nabuopensdk.AuthCheckCallback;
 import com.razer.android.nabuopensdk.NabuOpenSDK;
 import com.razer.android.nabuopensdk.interfaces.NabuAuthListener;
@@ -19,13 +18,12 @@ import com.squareup.otto.Subscribe;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
-import byoutline.com.hackfest.App;
-import byoutline.com.hackfest.R;
-import byoutline.com.hackfest.events.AuthorizationStatusEvent;
-import byoutline.com.hackfest.events.Events;
-import byoutline.com.hackfest.managers.AuthorizeManager;
+import com.byoutline.hackfest.App;
+import com.byoutline.hackfest.R;
+import com.byoutline.hackfest.events.AuthorizationStatusEvent;
+import com.byoutline.hackfest.events.Events;
+import com.byoutline.hackfest.managers.AuthorizeManager;
 
 import static timber.log.Timber.d;
 import static timber.log.Timber.e;

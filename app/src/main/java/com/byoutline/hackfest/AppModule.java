@@ -1,16 +1,14 @@
-package byoutline.com.hackfest;
+package com.byoutline.hackfest;
 
 import com.razer.android.nabuopensdk.NabuOpenSDK;
 import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
 
-import byoutline.com.hackfest.activities.MainActivity;
-import byoutline.com.hackfest.activities.SteamFiveBaseActivity;
-import byoutline.com.hackfest.fragments.AuthorizeFragment;
-import byoutline.com.hackfest.fragments.SteamFiveFragment;
-import byoutline.com.hackfest.fragments.SteamPlayersFragment;
-import byoutline.com.hackfest.managers.AuthorizeManager;
+import com.byoutline.hackfest.activities.MainActivity;
+import com.byoutline.hackfest.fragments.AuthorizeFragment;
+import com.byoutline.hackfest.fragments.SteamPlayersFragment;
+import com.byoutline.hackfest.managers.AuthorizeManager;
 import dagger.Module;
 import dagger.Provides;
 

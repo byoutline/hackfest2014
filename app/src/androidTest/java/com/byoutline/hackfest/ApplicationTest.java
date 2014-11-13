@@ -1,4 +1,4 @@
-package byoutline.com.hackfest;
+package com.byoutline.hackfest;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

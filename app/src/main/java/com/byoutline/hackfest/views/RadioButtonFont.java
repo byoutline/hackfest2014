@@ -1,4 +1,4 @@
-package byoutline.com.hackfest.views;
+package com.byoutline.hackfest.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,7 +10,7 @@ import android.widget.RadioButton;
 
 import com.byoutline.secretsauce.utils.FontCache;
 
-import byoutline.com.hackfest.R;
+import com.byoutline.hackfest.R;
 
 
 public class RadioButtonFont extends RadioButton {

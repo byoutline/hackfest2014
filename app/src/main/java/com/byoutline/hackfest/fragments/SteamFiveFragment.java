@@ -1,10 +1,7 @@
-package byoutline.com.hackfest.fragments;
+package com.byoutline.hackfest.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.support.annotation.NonNull;
-
-import com.byoutline.secretsauce.activities.HostActivity;
 
 /**
  * @author Sebastian Kacprzak <nait at naitbit.com>

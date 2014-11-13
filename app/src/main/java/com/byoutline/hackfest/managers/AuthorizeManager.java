@@ -1,11 +1,11 @@
-package byoutline.com.hackfest.managers;
+package com.byoutline.hackfest.managers;
 
 import com.squareup.otto.Bus;
 import com.squareup.otto.Produce;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import byoutline.com.hackfest.events.AuthorizationStatusEvent;
+import com.byoutline.hackfest.events.AuthorizationStatusEvent;
 
 /**
  * @author Sebastian Kacprzak <nait at naitbit.com>

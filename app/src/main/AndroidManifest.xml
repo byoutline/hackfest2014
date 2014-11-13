@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="byoutline.com.hackfest">
+    package="com.byoutline.hackfest">
 
     <uses-permission android:name="android.permission.INTERNET" />
 

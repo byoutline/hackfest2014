@@ -1,4 +1,4 @@
-package byoutline.com.hackfest.activities;
+package com.byoutline.hackfest.activities;
 
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -8,21 +8,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-import com.byoutline.secretsauce.Settings;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
-import byoutline.com.hackfest.App;
-import byoutline.com.hackfest.R;
-import byoutline.com.hackfest.events.AuthorizationStatusEvent;
-import byoutline.com.hackfest.events.Events;
-import byoutline.com.hackfest.fragments.AuthorizeFragment;
-import byoutline.com.hackfest.fragments.SteamFiveFragment;
-import byoutline.com.hackfest.fragments.SteamPlayersFragment;
+import com.byoutline.hackfest.App;
+import com.byoutline.hackfest.R;
+import com.byoutline.hackfest.fragments.AuthorizeFragment;
+import com.byoutline.hackfest.fragments.SteamPlayersFragment;
 
-import static byoutline.com.hackfest.events.Events.ShowGamersListFragment;
+import static com.byoutline.hackfest.events.Events.ShowGamersListFragment;
 
 
 public class MainActivity extends Activity {

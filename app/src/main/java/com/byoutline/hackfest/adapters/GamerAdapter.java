@@ -1,4 +1,4 @@
-package byoutline.com.hackfest.adapters;
+package com.byoutline.hackfest.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import byoutline.com.hackfest.App;
-import byoutline.com.hackfest.R;
-import byoutline.com.hackfest.model.Gamer;
+import com.byoutline.hackfest.App;
+import com.byoutline.hackfest.R;
+import com.byoutline.hackfest.model.Gamer;
 
 /**
  * @author Sebastian Kacprzak <nait at naitbit.com>

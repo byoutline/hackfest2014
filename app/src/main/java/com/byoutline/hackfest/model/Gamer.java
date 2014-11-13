@@ -1,4 +1,4 @@
-package byoutline.com.hackfest.model;
+package com.byoutline.hackfest.model;
 
 /**
  * @author Sebastian Kacprzak <nait at naitbit.com>

@@ -16,7 +16,7 @@ android {
     buildToolsVersion "21.0.2"
 
     defaultConfig {
-        applicationId "byoutline.com.hackfest"
+        applicationId "com.byoutline.hackfest"
         minSdkVersion 18
         targetSdkVersion 21
         versionCode 1
