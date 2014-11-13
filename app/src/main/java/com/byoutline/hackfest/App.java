@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import com.byoutline.secretsauce.Settings;
 import com.byoutline.secretsauce.utils.BusWrapper;
 import com.byoutline.secretsauce.utils.OttoBusWrapper;
+import com.parse.Parse;
 import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
@@ -38,6 +39,7 @@ public class App extends Application {
         if (BuildConfig.DEBUG) {
             plant(new Timber.DebugTree());
         }
+        Parse.initialize(this, "0PxlFOC4zXxNRqXEgu9N2hT0tGUK19pwb5CVj5s3", "jX6iULkeOeDbeifALn0Ius1mYn49CrCykHAKZO5D");
 
         BusWrapper busWrapper = new OttoBusWrapper(bus);
         Settings.set(getApplicationContext(), BuildConfig.DEBUG, R.id.container, busWrapper, DEFAULT_FONT, mBebasNoueBold);

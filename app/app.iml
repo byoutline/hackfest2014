@@ -88,6 +88,7 @@
     <orderEntry type="library" exported="" name="jackson-annotations-2.2.3" level="project" />
     <orderEntry type="library" exported="" name="Parse-1.7.1" level="project" />
     <orderEntry type="library" exported="" name="dagger-1.2.2" level="project" />
+    <orderEntry type="library" exported="" name="retrofit-1.7.1" level="project" />
     <orderEntry type="library" exported="" name="otto-1.2.1" level="project" />
     <orderEntry type="library" exported="" name="nabuopensdk_final" level="project" />
     <orderEntry type="library" exported="" name="timber-2.4.2" level="project" />
@@ -102,6 +103,8 @@
     <orderEntry type="library" exported="" name="javax.inject-1" level="project" />
     <orderEntry type="library" exported="" name="secretsauce" level="project" />
     <orderEntry type="library" exported="" name="volley" level="project" />
+    <orderEntry type="library" exported="" name="gson-2.3" level="project" />
+    <orderEntry type="library" exported="" name="bolts-android-1.1.2" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="support-v13-21.0.0" level="project" />
     <orderEntry type="library" exported="" name="butterknife-5.1.2" level="project" />
