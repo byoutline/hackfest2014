@@ -7,17 +7,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
+import com.byoutline.hackfest.App;
+import com.byoutline.hackfest.R;
+import com.byoutline.hackfest.model.Gamer;
 import com.byoutline.secretsauce.utils.ViewUtils;
 import com.byoutline.secretsauce.views.CustomFontTextView;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.byoutline.hackfest.App;
-import com.byoutline.hackfest.R;
-import com.byoutline.hackfest.model.Gamer;
 
 /**
  * @author Sebastian Kacprzak <nait at naitbit.com>
@@ -49,10 +47,10 @@ public class GamerAdapter extends ArrayAdapter<Gamer> {
         }
 
         Gamer gamer = getItem(position);
-        if(gamer!=null){
+        if (gamer != null) {
             Picasso.with(App.getInstance()).load(gamer.photoUrl).fit().into(holder.mGamerItemPhotoIv);
             ViewUtils.setTextOrClear(holder.mGamerItemNameTv, gamer.nick);
-            ViewUtils.setTextOrClear(holder.mGamerItemGamesTv,gamer.games);
+            ViewUtils.setTextOrClear(holder.mGamerItemGamesTv, gamer.games);
         }
 
 
