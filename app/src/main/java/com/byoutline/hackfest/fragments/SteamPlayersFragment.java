@@ -13,8 +13,8 @@ import com.byoutline.hackfest.adapters.GamerAdapter;
 import com.byoutline.hackfest.api.ApiClient;
 import com.byoutline.hackfest.api.PlayerDetails;
 import com.byoutline.hackfest.api.SteamDetails;
+import com.byoutline.hackfest.model.Gamer;
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -80,7 +80,6 @@ public class SteamPlayersFragment extends Fragment {
 
     private void setUpAdapters() {
         adapter = new GamerAdapter(getActivity().getApplication());
-        gamersLv.setAdapter(adapter);
     }
 
     private void setUpListeners() {
@@ -125,7 +124,7 @@ public class SteamPlayersFragment extends Fragment {
                     Timber.d("Nearby openid: " + openId);
                 }
                 String pawelOpenId = "8605da3c1da1659ef6507ac841a75acb93edd8e32c2257484986bbb0286fc30b";
-                String sebastianOpenId= "83bc1c62fa51afee8db0a982574aacf32184ac1418419957e46ebaeadc7632e2";
+                String sebastianOpenId = "83bc1c62fa51afee8db0a982574aacf32184ac1418419957e46ebaeadc7632e2";
                 ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("SteamUser").whereContainedIn("openid", openIds);
 //                ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("SteamUser");//.whereEqualTo("openid", sebastianOpenId);
                 parseQuery.findInBackground(new FindCallback<ParseObject>() {
@@ -139,7 +138,9 @@ public class SteamPlayersFragment extends Fragment {
                                 @Override
                                 public void success(SteamDetails steamDetails, Response response) {
                                     PlayerDetails playerDetails = steamDetails.response.players.get(0);
-                                    Timber.d("Steam returned:"  + playerDetails.profileurl);
+                                    Timber.d("Steam returned:" + playerDetails.profileurl);
+                                    adapter.add(new Gamer(playerDetails.avatarmedium, playerDetails.personaname, "Games: " + 236));
+                                    gamersLv.setAdapter(adapter);
                                 }
 
                                 @Override

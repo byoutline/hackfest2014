@@ -29,13 +29,6 @@ public class GamerAdapter extends ArrayAdapter<Gamer> {
     public GamerAdapter(Context ctx) {
         super(ctx, android.R.layout.simple_spinner_item);
         inflater = LayoutInflater.from(ctx);
-
-        ArrayList<Gamer> tmp = new ArrayList<>();
-        for(int i=1; i < 32; i++) {
-            tmp.add(new Gamer("http://lorempixel.com/200/200/people/" + Integer.toString(i%10) +"/", "Nick " + i,"Other games x" + i));
-        }
-
-        addAll(tmp);
     }
 
 
