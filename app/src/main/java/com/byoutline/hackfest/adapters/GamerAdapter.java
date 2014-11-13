@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.byoutline.hackfest.App;
 import com.byoutline.hackfest.R;
-import com.byoutline.hackfest.model.Gamer;
+import com.byoutline.hackfest.api.PlayerDetails;
 import com.byoutline.secretsauce.utils.ViewUtils;
 import com.byoutline.secretsauce.views.CustomFontTextView;
 import com.squareup.picasso.Picasso;
@@ -20,7 +20,7 @@ import butterknife.InjectView;
 /**
  * @author Sebastian Kacprzak <nait at naitbit.com>
  */
-public class GamerAdapter extends ArrayAdapter<Gamer> {
+public class GamerAdapter extends ArrayAdapter<PlayerDetails> {
 
     private LayoutInflater inflater;
 
@@ -46,11 +46,11 @@ public class GamerAdapter extends ArrayAdapter<Gamer> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Gamer gamer = getItem(position);
+        PlayerDetails gamer = getItem(position);
         if (gamer != null) {
-            Picasso.with(App.getInstance()).load(gamer.photoUrl).fit().into(holder.mGamerItemPhotoIv);
-            ViewUtils.setTextOrClear(holder.mGamerItemNameTv, gamer.nick);
-            ViewUtils.setTextOrClear(holder.mGamerItemGamesTv, gamer.games);
+            Picasso.with(App.getInstance()).load(gamer.avatarmedium).fit().into(holder.mGamerItemPhotoIv);
+            ViewUtils.setTextOrClear(holder.mGamerItemNameTv, gamer.personaname);
+            ViewUtils.setTextOrClear(holder.mGamerItemGamesTv, "Games: 231");
         }
 
 

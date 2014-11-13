@@ -1,10 +1,13 @@
 package com.byoutline.hackfest.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.byoutline.hackfest.App;
@@ -13,7 +16,6 @@ import com.byoutline.hackfest.adapters.GamerAdapter;
 import com.byoutline.hackfest.api.ApiClient;
 import com.byoutline.hackfest.api.PlayerDetails;
 import com.byoutline.hackfest.api.SteamDetails;
-import com.byoutline.hackfest.model.Gamer;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -33,6 +35,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -83,7 +86,14 @@ public class SteamPlayersFragment extends Fragment {
     }
 
     private void setUpListeners() {
-
+        gamersLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PlayerDetails item = adapter.getItem(position);
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.profileurl));
+                startActivity(browserIntent);
+            }
+        });
     }
 
 
@@ -139,7 +149,8 @@ public class SteamPlayersFragment extends Fragment {
                                 public void success(SteamDetails steamDetails, Response response) {
                                     PlayerDetails playerDetails = steamDetails.response.players.get(0);
                                     Timber.d("Steam returned:" + playerDetails.profileurl);
-                                    adapter.add(new Gamer(playerDetails.avatarmedium, playerDetails.personaname, "Games: " + 236));
+                                    adapter.clear();
+                                    adapter.add(playerDetails);
                                     gamersLv.setAdapter(adapter);
                                 }
 
