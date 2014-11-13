@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "Steam5": {
+            "applicationId": "0PxlFOC4zXxNRqXEgu9N2hT0tGUK19pwb5CVj5s3", 
+            "masterKey": "6hM89vv2cmyy2xF9nxxrAQxExdFjFgeJ7hUjzVP6"
+        }, 
+        "_default": {
+            "link": "Steam5"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.3.1"
+    }
+}
