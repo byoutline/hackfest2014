@@ -5,7 +5,7 @@ package com.byoutline.hackfest.api;
  */
 public class PlayerDetails {
     public String profileurl;
-    public String avatar;
+    public String avatarmedium;
     public String steamId;
     public String personaname;
 }
