@@ -4,4 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="authorize_edit_text_height">48dp</dimen>
     <dimen name="authorize_button_height">42dp</dimen>
+    <dimen name="tab_height">48dp</dimen>
+    <dimen name="gamer_size">86dp</dimen>
 </resources>

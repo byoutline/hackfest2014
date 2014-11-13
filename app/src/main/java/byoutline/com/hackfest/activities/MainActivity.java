@@ -1,15 +1,48 @@
 package byoutline.com.hackfest.activities;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
+import com.byoutline.secretsauce.Settings;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
+
+import javax.inject.Inject;
+
+import byoutline.com.hackfest.App;
 import byoutline.com.hackfest.R;
+import byoutline.com.hackfest.events.AuthorizationStatusEvent;
+import byoutline.com.hackfest.events.Events;
 import byoutline.com.hackfest.fragments.AuthorizeFragment;
+import byoutline.com.hackfest.fragments.SteamFiveFragment;
+import byoutline.com.hackfest.fragments.SteamPlayersFragment;
+
+import static byoutline.com.hackfest.events.Events.ShowGamersListFragment;
 
 
 public class MainActivity extends Activity {
+
+    @Inject
+    Bus bus;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bus.register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        bus.unregister(this);
+    }
+
+    private FragmentManager mFragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +53,7 @@ public class MainActivity extends Activity {
                     .add(R.id.container, new AuthorizeFragment())
                     .commit();
         }
+        App.doDaggerInject(this);
     }
 
 
@@ -43,6 +77,50 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showSteamListFragment(){
+        showFragment(SteamPlayersFragment.getInstance(),true);
+    }
+
+    public void showFragment(android.app.Fragment fragment, boolean addToBackStack)
+    {
+        showFragmentWithReplacing(fragment, true, addToBackStack, null);
+    }
+
+    public void showFragmentWithReplacing(android.app.Fragment fragment, boolean replace, boolean addToBackStack, int[] animations)
+    {
+        if (this.mFragmentManager == null) {
+            this.mFragmentManager = getFragmentManager();
+        }
+        FragmentTransaction fragmentTransaction = this.mFragmentManager.beginTransaction();
+        if (animations != null)
+        {
+            fragmentTransaction.setTransition(4097);
+            fragmentTransaction.setTransitionStyle(R.style.FragAnimation);
+            if (animations.length == 2) {
+                fragmentTransaction.setCustomAnimations(animations[0], animations[1]);
+            } else if (animations.length == 4) {
+                fragmentTransaction.setCustomAnimations(animations[0], animations[1], animations[2], animations[3]);
+            }
+        }
+        if (replace) {
+            fragmentTransaction.replace(R.id.container, fragment);
+        } else {
+            fragmentTransaction.add(R.id.container, fragment);
+        }
+        if (addToBackStack) {
+            fragmentTransaction.addToBackStack(null);
+        }
+        fragmentTransaction.commit();
+        fragmentTransaction.setCustomAnimations(17498112, 17498113);
+    }
+
+
+
+    @Subscribe
+    public void onAuthorizationChange(ShowGamersListFragment event) {
+        showSteamListFragment();
     }
 
 }

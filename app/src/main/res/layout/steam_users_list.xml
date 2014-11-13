@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:checkedButton="@+id/fav_gamers_rgb"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tab_height"
+        android:orientation="horizontal">
+
+
+        <byoutline.com.hackfest.views.RadioButtonFont
+            android:checked="true"
+            android:id="@+id/fav_gamers_rbtn"
+            android:layout_width="0dp"
+            android:clickable="true"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:background="@drawable/tab_bg_selector"
+            android:gravity="center"
+            android:hint="@string/authorize_steam_hint"
+            android:text="@string/fav_gamers"
+            android:textColor="@color/tab_text_color_selector" />
+
+
+        <byoutline.com.hackfest.views.RadioButtonFont
+            android:id="@+id/nearby_gamers_rbtn"
+            android:layout_width="0dp"
+            android:button="@null"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:background="@drawable/tab_bg_selector"
+            android:gravity="center"
+            android:hint="@string/authorize_steam_hint"
+            android:text="@string/nearby_gamers"
+            android:textColor="@color/tab_text_color_selector" />
+
+    </RadioGroup>
+
+    <ListView
+        android:id="@+id/players_lv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" android:layout_weight="1"/>
+
+</LinearLayout>

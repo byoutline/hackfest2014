@@ -24,6 +24,7 @@ import butterknife.OnClick;
 import byoutline.com.hackfest.App;
 import byoutline.com.hackfest.R;
 import byoutline.com.hackfest.events.AuthorizationStatusEvent;
+import byoutline.com.hackfest.events.Events;
 import byoutline.com.hackfest.managers.AuthorizeManager;
 
 import static timber.log.Timber.d;
@@ -40,9 +41,6 @@ public class AuthorizeFragment extends Fragment {
     AuthorizeManager authorizeManager;
     @Inject
     Bus bus;
-
-    @InjectView(R.id.authorize_continue_tv)
-    View TMP;
 
     public AuthorizeFragment() {
     }
@@ -77,11 +75,17 @@ public class AuthorizeFragment extends Fragment {
 
     private void openListFragment() {
         // TODO: write me.
+        bus.post(new Events.ShowGamersListFragment());
+//        mHostActivity.showSteamListFragment();
         d("open list fragment");
+
     }
 
     @OnClick(R.id.authorize_continue_tv)
     public void onAuthorizeClicked() {
+        //TODO: remove me
+
+        bus.post(new Events.ShowGamersListFragment());
         nabuSDK.initiate(getActivity(), "ec47877454906fd268286676ef549d0736965485", new String[]{Scope.SCOPE_FITNESS}, new NabuAuthListener() {
 
             @Override

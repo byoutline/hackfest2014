@@ -6,5 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="authorize_steam_hint">Enter your Steam Id</string>
     <string name="authorize_continue">Continue</string>
+    <string name="fav_gamers">Favourite</string>
+    <string name="nearby_gamers">Nearby</string>
 
 </resources>

@@ -5,7 +5,11 @@ import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
 
+import byoutline.com.hackfest.activities.MainActivity;
+import byoutline.com.hackfest.activities.SteamFiveBaseActivity;
 import byoutline.com.hackfest.fragments.AuthorizeFragment;
+import byoutline.com.hackfest.fragments.SteamFiveFragment;
+import byoutline.com.hackfest.fragments.SteamPlayersFragment;
 import byoutline.com.hackfest.managers.AuthorizeManager;
 import dagger.Module;
 import dagger.Provides;
@@ -15,7 +19,10 @@ import dagger.Provides;
  */
 @Module(
         injects = {
+                App.class,
                 AuthorizeFragment.class,
+                SteamPlayersFragment.class,
+                MainActivity.class
         }
 )
 public class AppModule {
