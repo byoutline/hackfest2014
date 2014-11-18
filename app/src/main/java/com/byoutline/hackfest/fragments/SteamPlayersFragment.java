@@ -2,14 +2,18 @@ package com.byoutline.hackfest.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 
 import com.byoutline.hackfest.App;
 import com.byoutline.hackfest.R;
@@ -18,6 +22,7 @@ import com.byoutline.hackfest.api.ApiClient;
 import com.byoutline.hackfest.api.PlayerDetails;
 import com.byoutline.hackfest.api.SteamDetails;
 import com.byoutline.hackfest.views.RadioButtonFont;
+import com.byoutline.secretsauce.utils.ViewUtils;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -67,6 +72,10 @@ public class SteamPlayersFragment extends Fragment {
     RadioButtonFont favGamers;
     @InjectView(R.id.nearby_gamers_rbtn)
     RadioButtonFont nearbyGamers;
+    @InjectView(R.id.logo_ll)
+    View logoLl;
+    @InjectView(R.id.dummy_id)
+    RadioGroup radioGroup;
 
 
     public SteamPlayersFragment() {
@@ -93,6 +102,19 @@ public class SteamPlayersFragment extends Fragment {
 
     private void setUpAdapters() {
         adapter = new GamerAdapter(getActivity().getApplication());
+        adapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                ViewUtils.showView(gamersLv,true);
+            }
+
+            @Override
+            public void onInvalidated() {
+                super.onInvalidated();
+                ViewUtils.showView(gamersLv,true);
+            }
+        });
     }
 
     private void setUpListeners() {
@@ -104,24 +126,44 @@ public class SteamPlayersFragment extends Fragment {
                 startActivity(browserIntent);
             }
         });
-        nearbyGamers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    adapter.clear();
-                    queryPulseData();;
-                }
-            }
-        });
+
+
+
+//        nearbyGamers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if(isChecked) {
+//
+//                }
+//            }
+//        });
 
     }
 
+
+    @OnClick(R.id.nearby_gamers_rbtn)
+    public void onClick(){
+        adapter.clear();
+        queryPulseData();;
+    }
+
+    private void startPulseAnimation() {
+        Animation pulseAnim = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.pulse_animation);
+        logoLl.startAnimation(pulseAnim);
+    }
 
     @Override
     public void onResume() {
         super.onResume();
         bus.register(this);
-        queryPulseData();
+        startPulseAnimation();
+        getView().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                queryPulseData();
+            }
+        },2000);
+
     }
 
     @Override

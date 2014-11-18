@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
-    android:orientation="vertical">
+    android:background="@android:color/darker_gray">
 
     <RadioGroup
-        android:checkedButton="@+id/fav_gamers_rgb"
+        android:id="@+id/dummy_id"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tab_height"
+        android:layout_alignParentTop="true"
+        android:checkedButton="@+id/nearby_gamers_rbtn"
         android:orientation="horizontal">
 
 
         <com.byoutline.hackfest.views.RadioButtonFont
-            android:checked="true"
             android:id="@+id/fav_gamers_rbtn"
             android:layout_width="0dp"
-            android:clickable="true"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:button="@null"
             android:background="@drawable/tab_bg_selector"
+            android:button="@null"
+
+            android:clickable="true"
             android:gravity="center"
             android:hint="@string/authorize_steam_hint"
             android:text="@string/fav_gamers"
@@ -30,11 +31,11 @@
         <com.byoutline.hackfest.views.RadioButtonFont
             android:id="@+id/nearby_gamers_rbtn"
             android:layout_width="0dp"
-            android:button="@null"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:clickable="true"
             android:background="@drawable/tab_bg_selector"
+            android:button="@null"
+            android:clickable="true"
             android:gravity="center"
             android:hint="@string/authorize_steam_hint"
             android:text="@string/nearby_gamers"
@@ -42,9 +43,38 @@
 
     </RadioGroup>
 
+
+    <LinearLayout
+        android:id="@+id/logo_ll"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/razer_button" />
+
+        <TextView
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:text="Scanning..."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
     <ListView
+        android:visibility="gone"
         android:id="@+id/players_lv"
         android:layout_width="match_parent"
-        android:layout_height="0dp" android:layout_weight="1"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/dummy_id"
+        android:background="@android:color/darker_gray" />
 
-</LinearLayout>
+</RelativeLayout>
